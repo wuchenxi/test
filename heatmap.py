@@ -5,7 +5,7 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 
-data=open("sp500.csv")
+data=open("nasdaq.csv")
 next(data)
 months=[[]]
 for l in data:
@@ -34,10 +34,8 @@ def get_price(m, d):
 invprices=[]
 for month in months:
     prices=[1/get_price(month, d+1) for d in range(31)]
-    max_prices=max(prices)
-    min_prices=min(prices)
-    prices=[(p-min_prices)/(max_prices-min_prices) for p in prices]
     invprices+=[prices]
-X=np.array(invprices)
+X=np.array(invprices[-240:])
+X=(X-np.min(X))/(np.max(X)-np.min(X))
 plt.imshow(X, cmap='hot', interpolation='nearest')
 plt.show()
