@@ -11,15 +11,16 @@ for l in data:
     price=float(ll[4])
     if len(months[-1])>0 and day<months[-1][-1][0]:
         months+=[[]]
-    months[-1]+=[(day, price)]
+    months[-1]+=[(day, price, ld[0], ld[1])]
 months=months[1:-1]
 n=len(months)
 returns_list=[[] for i in range(31)]
-for start in range(200, n-36):
+print(months[100][0])
+for start in range(100, 112):
     for d in range(1, 32):
         returns=0
         curprice=0
-        for k in range(start, start+36):
+        for k in range(start, start+120):
             if d<months[k][0][0]:
                 returns+=1/months[k][0][1]
                 curprice=months[k][0][1]
@@ -32,7 +33,7 @@ for start in range(200, n-36):
                         returns+=1/day[1]
                         curprice=day[1]
                         break
-        returns_list[d-1]+=[returns*curprice/36]
+        returns_list[d-1]+=[returns*curprice/120]
 print(friedmanchisquare(*returns_list))
 lst=[]
 for i in range(31):
